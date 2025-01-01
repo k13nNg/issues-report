@@ -14,22 +14,36 @@ datasource db {
 }
 
 model Issue {
-  id        Int    @id @default(autoincrement())
-  title     String @db.VarChar(255)
-  desc      String @db.Text
-  status    Status @default(OPEN)
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  desc      String   @db.Text
+  status    Status   @default(OPEN)
+  priority  Priority @default(LOW)
+  author    String   @default("")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model User {
   userID   Int    @id @default(autoincrement())
-  username String
+  username String @db.VarChar(255) @unique
   password String
+  role     Role
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
 }
 
 enum Status {
   OPEN
   IN_PROGRESS
   CLOSED
+}
+
+enum Role {
+  USER
+  ADMIN
 }

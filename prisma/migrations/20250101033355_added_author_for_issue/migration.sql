@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Issue` ADD COLUMN `author` VARCHAR(191) NOT NULL DEFAULT '';
