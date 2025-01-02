@@ -64,7 +64,7 @@ export default async function Home() {
   const closedTickets = getClosedTickets(allTickets);
 
   return (
-    <div className="p-5 flex justify-center">
+    <div className="p-5 flex justify-center mb-5">
       <Dashboard allTickets={allTickets} openTickets={openTickets} inProgressTickets = {inProgressTickets} closedTickets={closedTickets} />
     </div>
   );

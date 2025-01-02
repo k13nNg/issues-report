@@ -7,9 +7,9 @@ import axios from "axios";
 const jwtKey = process.env.JWT_KEY;
 const signingKey = new TextEncoder().encode(jwtKey);
 
-interface LoginForm {
+interface User {
     username: string;
-    password: string;
+    userRole: string;
 }
 
 export async function encrypt(payload: any) {
@@ -27,11 +27,13 @@ export async function decrypt(input: string): Promise<any> {
     return payload;
 }
 
-export async function login(formData: LoginForm) {
-
-
+export async function login(data: User) {
     // create a new session
-    const user = formData.username;
+
+    const user = {
+        username: data.username,
+        role: data.userRole
+    };
 
     const expires = new Date(Date.now() + (1 * 60 * 60 *1000))
 
@@ -65,8 +67,18 @@ export async function updateSession(request: NextRequest) {
     
     parsed.expires = new Date(Date.now() + 10 * 1000);
     
+    // enable CORS
     const res = NextResponse.next();
     
+    // add the CORS headers to the response
+    res.headers.append('Access-Control-Allow-Credentials', "true")
+    res.headers.append('Access-Control-Allow-Origin', '*') 
+    res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+    res.headers.append(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+    )
+
     res.cookies.set({
         name: "session",
         value: await encrypt(parsed),

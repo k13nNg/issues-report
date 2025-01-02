@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "../../../../prisma/client";
+import prisma from "../../../../../prisma/client";
 import bcrypt from "bcrypt";
 
 export async function POST (request: NextRequest){
@@ -12,7 +12,11 @@ export async function POST (request: NextRequest){
     }
 
    if (bcrypt.compareSync(body.password, user.password) === true) {
-    return NextResponse.json(user.role, {status: 200})
+    const response = {
+        username: user.username,
+        userRole: user.role
+    }
+    return NextResponse.json(response, {status: 200})
    } else {
     return NextResponse.json("Incorrect Password", {status: 400})
    }
