@@ -37,10 +37,12 @@ const NavBarMobile = (props: any) => {
     return (
         <div>
             <div className='flex flex-row justify-between'>
-                <div className="flex flex-row items-center">
-                    <FiActivity/>
-                    <h1 className="font-bold">Tech Issues Tracker</h1>
-                </div>
+                <Link href="/">
+                    <div className="flex flex-row items-center">
+                        <FiActivity/>
+                        <h1 className="font-bold">Tech Issues Tracker</h1>
+                    </div>
+                </Link>
                 <button onClick={() => toggleHamburgerBar()}>
                     {
                         isOpen ? (
@@ -63,9 +65,15 @@ const NavBarMobile = (props: any) => {
                                 <li className="hover:text-gray-200">
                                     <Link href="/">Dashboard</Link>
                                 </li>
-                                <li className="hover:text-gray-200">
+                                {
+                                (props.admin === true) ? (
+                                    <li className="hover:text-gray-200" onClick={toggleHamburgerBar}>
+                                        <Link href="/admin" >Portal</Link>
+                                    </li>
+                                ) :
+                                (<li className="hover:text-gray-200" onClick={toggleHamburgerBar}>
                                     <Link href="/issue">Issues</Link>
-                                </li>
+                                </li>)}
                                 <li className="hover:text-gray-20 hover:cursor-pointer" onClick={logout}>Log Out</li>
                             </ul>
                         )

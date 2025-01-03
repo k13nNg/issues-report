@@ -1,12 +1,13 @@
 "use client"
-import {useState, createContext, useContext} from 'react';
+import {useState} from 'react';
 import SmallWidget from "@/app/components/smallWidget";
-import { Button, Table } from '@radix-ui/themes';
-import StatusContext from '../context/status';
-import * as ScrollArea from "@radix-ui/react-scroll-area";
+import { Table } from '@radix-ui/themes';
+import {marked} from "marked";
 
 const Dashboard = (props: any) => {
     const [status, setStatus] = useState("all");
+    const [priority, setPriority] = useState("all");
+  
     const allTickets = props.allTickets;
     const openTickets = props.openTickets;
     const inProgressTickets = props.inProgressTickets;
@@ -30,26 +31,6 @@ const Dashboard = (props: any) => {
                 <div className='flex justify-center'>
                     <div className="w-40 px-5 bg-red-200 rounded-sm text-center text-red-600">{props.priority}</div>
                 </div>
-            )
-        }
-    }
-
-    function StatusTitle(props: any) {
-        if (props.status === "all") {
-            return (
-                <h1 className="text-3xl font-bold">All Tickets</h1>
-            )
-        } else if (props.status === "open") {
-            return (
-                <h1 className='text-3xl font-bold'>Open Tickets</h1>
-            )
-        } else if (props.status === "inProgress") {
-            return (
-                <h1 className='text-3xl font-bold'>In Progress Tickets</h1>
-            )
-        } else {
-            return (
-                <h1 className='text-3xl font-bold'>Closed Tickets</h1>
             )
         }
     }
@@ -78,52 +59,71 @@ const Dashboard = (props: any) => {
 
     function TicketsTable(props: any) {
         return (
-            <Table.Root variant="surface" size = "3">
+            <Table.Root variant="ghost" size = "3">
                <Table.Header>
                    <Table.Row>
                        <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
                        <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
-                       <Table.ColumnHeaderCell justify="center">Priority</Table.ColumnHeaderCell>
+                       <Table.ColumnHeaderCell justify="center">
+                        <select name="priority" id="priority" className='text-center' value={priority} onChange={(e) => {
+                            setStatus("all");
+                            setPriority(e.target.value)
+                        }}>
+                          <option value="all">All</option>
+                          <option value="LOW">LOW</option>
+                          <option value="MEDIUM">MEDIUM</option>
+                          <option value="HIGH">HIGH</option>
+                        </select>
+                        </Table.ColumnHeaderCell>
                        <Table.ColumnHeaderCell justify="center">Camp</Table.ColumnHeaderCell>
-                       <Table.ColumnHeaderCell justify="center">Status</Table.ColumnHeaderCell>
-                       <Table.ColumnHeaderCell />
+
+                       <Table.ColumnHeaderCell justify="center">
+                       <select name="status" id="status" className='text-center' value={status} onChange={(e) => {
+                            setPriority("all")
+                            setStatus(e.target.value)
+                        }}>
+                          <option value="all">All</option>
+                          <option value="open">Open</option>
+                          <option value="inProgress">In Progress</option>
+                          <option value="closed">Closed</option>
+                        </select>
+                       </Table.ColumnHeaderCell>
+                       
                    </Table.Row>
                </Table.Header>
 
                <Table.Body>
-                   {allTickets.map((elem: any) => {
-                        if (elem.status.toLowerCase() === props.status || props.status === "all" || (elem.status === "IN_PROGRESS" && props.status === "inProgress")) {
-                            return (
-                                <Table.Row key={elem.id}>
-                                    <Table.Cell>{elem.title}</Table.Cell>
-                                    <Table.Cell>{elem.desc}</Table.Cell>
-                                    <Table.Cell><Priority priority={elem.priority}/></Table.Cell>
-                                    <Table.Cell justify="center">{elem.author}</Table.Cell>
-                                    <Table.Cell><Status status={elem.status}/></Table.Cell>
-                                </Table.Row>
-                            );
-                        }
-                   })}
-
+                    {allTickets.map((elem: any) => {
+                      if ( (elem.priority === props.priority || props.priority === "all") && (elem.status.toLowerCase() === props.status || props.status === "all" || (elem.status === "IN_PROGRESS" && props.status === "inProgress"))) {
+                          return (
+                              <Table.Row key={elem.id}>
+                                  <Table.Cell>{elem.title}</Table.Cell>
+                                  <Table.Cell>{
+                                      <div className='max-w-64' dangerouslySetInnerHTML={{__html:marked.parse(elem.desc)}}></div>}</Table.Cell>
+                                  <Table.Cell><Priority priority={elem.priority}/></Table.Cell>
+                                  <Table.Cell justify="center">{elem.author}</Table.Cell>
+                                  <Table.Cell><Status status={elem.status}/></Table.Cell>
+                              </Table.Row>
+                          );
+                      } 
+                       
+                    })}
                </Table.Body>
             </Table.Root>    
            )
     }
 
     return (
-        <div className='flex flex-col space-y-5 items-center justify-center'>
-
+        <div className='flex flex-col space-y-5 content-start items-center'>
             <div className="flex flex-col space-y-5 lg:flex-row lg:space-y-0 lg:space-x-5">
-                <StatusContext.Provider value={{status, setStatus}}>
-                    <SmallWidget iconString="all" title="Total Tickets" data={allTickets.length}/>
-                    <SmallWidget iconString="open" title="Open Tickets" data={openTickets.length}/>
-                    <SmallWidget iconString="inProgress" title="In Progress Tickets" data={inProgressTickets.length}/>
-                    <SmallWidget iconString="closed" title="Closed Tickets" data={closedTickets.length}/>
-                </StatusContext.Provider>
+                <SmallWidget iconString="all" title="Total Tickets" data={allTickets.length}/>
+                <SmallWidget iconString="open" title="Open Tickets" data={openTickets.length}/>
+                <SmallWidget iconString="inProgress" title="In Progress Tickets" data={inProgressTickets.length}/>
+                <SmallWidget iconString="closed" title="Closed Tickets" data={closedTickets.length}/>
             </div>
-            <StatusTitle status={status}/>
-            <div className='w-1/2 md:w-full wrap max-h-screen overflow-auto'>
-                <TicketsTable status={status}/>
+
+            <div className='h-2/4 w-1/2 md:w-full wrap overflow-auto'>
+                <TicketsTable status={status} priority={priority}/>
 
             </div>
 

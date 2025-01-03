@@ -10,6 +10,7 @@ const signingKey = new TextEncoder().encode(jwtKey);
 interface User {
     username: string;
     userRole: string;
+    userID: number;
 }
 
 export async function encrypt(payload: any) {
@@ -32,7 +33,8 @@ export async function login(data: User) {
 
     const user = {
         username: data.username,
-        role: data.userRole
+        role: data.userRole,
+        userID: data.userID
     };
 
     const expires = new Date(Date.now() + (1 * 60 * 60 *1000))

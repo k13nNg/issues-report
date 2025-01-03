@@ -41,7 +41,7 @@ const Login = () => {
             </div>}
             <input className="border-solid border-2 rounded-sm p-2" placeholder='Username' {...register("username")}></input>
             <input className="border-solid border-2 rounded-sm p-2" type="password" placeholder='Password' {...register("password")}></input>
-            <div>
+            <div className='text-right'>
                 <Button className='text-right hover:cursor-pointer'>Login</Button>
             </div>
         </form>

@@ -14,7 +14,8 @@ export async function POST (request: NextRequest){
    if (bcrypt.compareSync(body.password, user.password) === true) {
     const response = {
         username: user.username,
-        userRole: user.role
+        userRole: user.role,
+        userID: user.userID
     }
     return NextResponse.json(response, {status: 200})
    } else {

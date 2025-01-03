@@ -4,14 +4,16 @@ import prisma from "../../../../prisma/client";
 
 const createNewIssueSchema = z.object({
     title : z.string().min(1, "Title cannot be empty").max(255, "Title cannot exceed 255 characters"),
-    desc: z.string().min(1, "Description cannot be empty")
+    desc: z.string().min(1, "Description cannot be empty"),
+    priority: z.enum(["LOW", "MEDIUM", "HIGH"], {message: "Priority must be one of 'LOW', 'MEDIUM', or 'HIGH'"}),
 })
 
 const updateIssueSchema = z.object({
     id: z.number(),
     title : z.string().min(1, "Title cannot be empty").max(255, "Title cannot exceed 255 characters"),
     desc: z.string().min(1, "Description cannot be empty"),
-    status: z.enum(["OPEN", "IN_PROGRESS", "CLOSED"], {message: "Error must be one of 'OPEN', 'IN_PROGRESS', or 'CLOSED'"})
+    priority: z.enum(["LOW", "MEDIUM", "HIGH"], {message: "Priority must be one of 'LOW', 'MEDIUM', or 'HIGH'"}),
+    status: z.enum(["OPEN", "IN_PROGRESS", "CLOSED"], {message: "Priority must be one of 'OPEN', 'IN_PROGRESS', or 'CLOSED'"})
 })
 
 export async function POST(request: NextRequest) {
@@ -21,14 +23,20 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
         return NextResponse.json(validation.error.errors, {status: 400});
     } else {
-        const newIssue = await prisma.issue.create({
-            data: {
-                title: body.title,
-                desc: body.desc
-            }
-        })
-
-        return NextResponse.json(newIssue, {status: 201});
+        try {
+            const newIssue = await prisma.issue.create({
+                data: {
+                    title: body.title,
+                    desc: body.desc,
+                    priority: body.priority,
+                    author: body.author
+                }
+            })
+    
+            return NextResponse.json(newIssue, {status: 201});
+        } catch (error) {
+            return NextResponse.json(error, {status: 400})
+        }
     }
 
 }
@@ -53,8 +61,9 @@ export async function PUT(request: NextRequest) {
             },
             data: {
                 title: body.title,
-                desc: body.title,
-                status: body.status
+                desc: body.desc,
+                status: body.status,
+                priority: body.priority
             }
         })
 
