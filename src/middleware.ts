@@ -1,16 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
-import { updateSession } from "./app/authentication";
+import { updateSession, getSession } from "./app/authentication";
+
 
 export async function middleware(req: NextRequest) {
     const body = req.headers.get("Authorization");
-    if (body == process.env.NEXT_PUBLIC_API_KEY) {
-        // return NextResponse.next();
+    const session = await getSession();
 
-        // retrieve the current response
-        return await updateSession(req)
+    if (req.nextUrl.pathname === "/admin") {
+        if (session !== null) {
+            return await updateSession(req);
+        } else {
+            console.log("Hi")
+            return NextResponse.redirect("/");
+        }
+    }
 
-    } else {
-        return NextResponse.json("Unauthorized access", {status: 400})
+
+    if (req.nextUrl.pathname.startsWith("/api")){
+        
+        if (body == process.env.NEXT_PUBLIC_API_KEY) {
+            // return NextResponse.next();
+    
+            // retrieve the current response
+            return await updateSession(req)
+    
+        } else {
+            return NextResponse.json("Unauthorized access", {status: 400})
+        }
     }
 }
 

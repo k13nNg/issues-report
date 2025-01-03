@@ -140,9 +140,7 @@ const Issue = async () => {
     <div className='p-5'>
       <div>
         {
-          (session === null) ? (
-            <h1>Please log in to continue</h1>
-          ) : (
+          (session !== null && session.user.role === "USER") ? (
             <div className='flex flex-col space-y-5'>
               <h1 className="text-3xl">Welcome back, <i>{session.user.username}</i></h1>
               <div className="flex flex-col content-center items-center lg:items-start lg:flex-row md:space-x-10">
@@ -168,6 +166,8 @@ const Issue = async () => {
                 </div>
               </div>
             </div>
+          ) : (
+            <h1 className='text-3xl'>Please log in to your user account to continue</h1>
           )
         }
       </div>
