@@ -20,7 +20,7 @@ const SmallWidget = (props: any) => {
     }
     return (
         // <div>smallWidget</div>
-        <div className="w-64 p-3 hover:border-blue-500 border-solid border-2 rounded-md text-center flex items-center flex-col space-y-2">
+        <div className="w-64 p-3 hover:border-blue-500 hover:bg-gray-300 border-solid border-2 rounded-md text-center flex items-center flex-col space-y-2">
             <GetIcon val={props.iconString} />
             <h1>{props.title}</h1>
             <p>{props.data}</p>

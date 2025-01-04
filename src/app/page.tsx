@@ -12,11 +12,22 @@ interface ticket {
 }
 
 async function getAllTickets() {
-  const issues = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, {headers: {
-    Authorization: process.env.NEXT_PUBLIC_API_KEY
-  }})
+  // const issues = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, {headers: {
+  //   Authorization: process.env.NEXT_PUBLIC_API_KEY
+  // }})
 
-  return issues;
+  try {
+    const issues = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, {headers: {
+      Authorization: process.env.NEXT_PUBLIC_API_KEY
+    }})
+
+    console.log(`Issues: ${await issues}`);
+    return issues;
+  } catch (err) {
+    
+    console.log(`Error: ${err}`);
+  }
+
 }
 
 function getOpenTickets(allTickets: Array<ticket>) {
@@ -57,7 +68,7 @@ function getClosedTickets(allTickets: Array<ticket>) {
 
 export default async function Home() {
   const allTicketsRes = await getAllTickets();
-  const allTickets = allTicketsRes.data;
+  const allTickets = allTicketsRes?.data;
   const openTickets = getOpenTickets(allTickets);
   const inProgressTickets = getInProgressTickets(allTickets);
   const closedTickets = getClosedTickets(allTickets);
