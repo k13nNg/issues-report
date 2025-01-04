@@ -21,7 +21,7 @@ async function getAllTickets() {
       Authorization: process.env.NEXT_PUBLIC_API_KEY
     }})
 
-    console.log(`Issues: ${issues}`);
+    console.log(`Issues: ${issues.data}`);
     return issues;
   } catch (err) {
     
