@@ -17,7 +17,7 @@ const NewIssueForm = (props: any) => {
     const toolbar = [
         {
             name: "bold",
-            action: function customFunction(editor:any) {
+            action: function customFunction1(editor:any) {
                 editor.toggleBold();
             },
             className: "fa fa-bold",
@@ -25,7 +25,7 @@ const NewIssueForm = (props: any) => {
         },
         {
             name: "italic",
-            action: function customFunction(editor:any) {
+            action: function customFunction2(editor:any) {
                 editor.toggleItalic();
             },
             className: "fa fa-italic",
@@ -33,7 +33,7 @@ const NewIssueForm = (props: any) => {
         },
         {
             name: "heading",
-            action: function customFunction(editor:any) {
+            action: function customFunction3(editor:any) {
                 editor.toggleHeading1();
             },
             className: "fa fa-header header-1",
@@ -41,7 +41,7 @@ const NewIssueForm = (props: any) => {
         },
         {
             name: "preview",
-            action: function customFunction(editor: any) {
+            action: function customFunction4(editor: any) {
                 editor.togglePreview();
             },
             className: "fa fa-eye no-disable",
@@ -82,7 +82,7 @@ const NewIssueForm = (props: any) => {
                     author: props.username
                 }
                 try{
-                    await axios.post("/api/ticket", payload, {
+                    await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, payload, {
                         headers: {"Authorization": process.env.NEXT_PUBLIC_API_KEY}
                     })
                     router.push("/");

@@ -35,7 +35,7 @@ const AdminPortal = () => {
                                         (""));
 
 
-    fetch("/api/issue", 
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, 
       {headers: requestHeaders,
       method: "GET"})
       .then((res) => res.json())
@@ -53,7 +53,7 @@ const AdminPortal = () => {
 
     try {
 
-        axios.put("/api/issue", data, {
+        axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, data, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const AdminPortal = () => {
     const data = {id: elem.id};
 
     try {
-        axios.delete("/api/issue", {
+        axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
