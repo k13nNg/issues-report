@@ -111,7 +111,7 @@ const NewIssueForm = (props: any) => {
                         {...field}/>}
                     />
                     <div className='text-right'>
-                        <Button>Submit</Button>
+                        <Button className='hover:cursor-pointer'>Submit</Button>
                     </div>
                 </div>
             </form>
