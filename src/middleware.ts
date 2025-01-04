@@ -10,7 +10,6 @@ export async function middleware(req: NextRequest) {
         if (session !== null) {
             return await updateSession(req);
         } else {
-            console.log("Hi")
             return NextResponse.redirect("/");
         }
     }

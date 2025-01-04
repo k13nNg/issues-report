@@ -21,10 +21,19 @@ export async function encrypt(payload: any) {
 }
 
 export async function decrypt(input: string): Promise<any> {
-    const {payload} = await jwtVerify(input, signingKey, {
-        algorithms: ["HS256"],
-    });
-    return payload;
+    // const {payload} = await jwtVerify(input, signingKey, {
+    //     algorithms: ["HS256"],
+    // });
+    // return payload;
+    try {
+        const { payload } = await jwtVerify(input, signingKey, {
+            algorithms: ["HS256"],
+        });
+        return payload;
+    } catch (err) {
+        console.error("JWT verification failed:", err);
+        throw new Error("Invalid token");
+    }
 }
 
 export async function login(data: User) {

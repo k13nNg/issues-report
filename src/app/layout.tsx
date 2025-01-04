@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
-// import NavBar from "./components/NavBar";
+import { Analytics } from "@vercel/analytics/react"
 import NavBar from "./components/navBar";
 import { Theme } from "@radix-ui/themes";
 
@@ -34,6 +34,7 @@ export default function RootLayout({
         <Theme>
               <header><NavBar></NavBar></header>
               {children}
+              <Analytics/>
         </Theme>
       </body>
     </html>
