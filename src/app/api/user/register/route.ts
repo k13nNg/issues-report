@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
   if (!validation.success) {
     return NextResponse.json(validation.error.errors, {status: 400});
   } else {
-    const generatedSalt = await bcrypt.genSalt();
+    const generatedSalt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(body.password, generatedSalt);
     try {
       const newUser = await prisma.user.create({

@@ -9,7 +9,7 @@ const NavBar = async () => {
     const session = await getSession();
 
     return (
-        <nav className = "w-full bg-blue-500  py-5 px-10">
+        <nav className = "w-full bg-blue-500 py-2 px-10">
             <div className="hidden md:flex flex-row justify-between items-center content-center">
                 <Link href="/">
                     <div className="flex flex-row items-center">
@@ -36,6 +36,9 @@ const NavBar = async () => {
                                     </li>
                                 )
                             }
+                            <li className="hover:text-gray-200">
+                                <Link href="/changePassword">Change Password</Link>
+                            </li>
                             <Button className="hover:cursor-pointer" onClick={logout}>Log Out</Button>
                         </ul>
                     )

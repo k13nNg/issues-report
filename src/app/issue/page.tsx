@@ -147,7 +147,7 @@ const Issue = async () => {
                 <div className='lg:grow'>
                   <NewIssueForm className="grow" username = {session.user.username}/>
                 </div>
-                <div className='h-screen'>
+                <div className='h-full'>
                   <h1 className='text-5xl'><b>My Tickets</b></h1>
                   <div className='mt-5'>
                     <h2 className='text-2xl my-5 bg-blue-200 text-blue-600 w-20 rounded-sm text-center'>Open</h2>
