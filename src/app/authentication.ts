@@ -31,6 +31,8 @@ export async function decrypt(input: string): Promise<any> {
         });
         return payload;
     } catch (err) {
+        console.log(`jwtKey: ${jwtKey}`)
+        console.log(`signingKey: ${signingKey}`)
         console.error("JWT verification failed:", err);
         throw new Error("Invalid token");
     }
