@@ -9,7 +9,6 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
     ssr: false,
 });
 import axios from 'axios';
-import { time } from 'console';
 import { useRouter } from 'next/navigation';
 
 const NewIssueForm = (props: any) => {
@@ -83,7 +82,7 @@ const NewIssueForm = (props: any) => {
                     author: props.username
                 }
                 try{
-                    const response = await axios.post("/api/issue", payload, {
+                    await axios.post("/api/ticket", payload, {
                         headers: {"Authorization": process.env.NEXT_PUBLIC_API_KEY}
                     })
                     router.push("/");

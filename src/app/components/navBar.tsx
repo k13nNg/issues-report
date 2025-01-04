@@ -1,7 +1,7 @@
 import { Button } from "@radix-ui/themes";
 import Link from "next/link";
 import { FiActivity } from "react-icons/fi";
-import { getSession, login, logout } from "../authentication";
+import { getSession, logout } from "../authentication";
 import NavBarMobile from "./navBarMobile";
 
 
@@ -9,7 +9,7 @@ const NavBar = async () => {
     const session = await getSession();
 
     return (
-        <nav className = "w-full bg-blue-500 py-2 px-10">
+        <nav className = "w-full bg-blue-500 py-5 px-10">
             <div className="hidden md:flex flex-row justify-between items-center content-center">
                 <Link href="/">
                     <div className="flex flex-row items-center">

@@ -9,11 +9,11 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Issue {
+model Ticket {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
   desc      String   @db.Text

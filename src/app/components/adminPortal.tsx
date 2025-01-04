@@ -6,7 +6,6 @@ import { FaPen } from "react-icons/fa";
 import { TiTick } from "react-icons/ti";
 import { FaRegTrashAlt } from "react-icons/fa";
 import axios from 'axios';
-import { getSession } from '../authentication';
 
 interface Ticket {
     id: number;
@@ -60,7 +59,7 @@ const AdminPortal = () => {
                 "Content-Type": "application/json",
                 "Authorization": process.env.NEXT_PUBLIC_API_KEY
             }
-        }).then((res) => window.location.reload());
+        }).then(() => window.location.reload());
 
     } catch (err) {
         console.log(err)
@@ -79,7 +78,7 @@ const AdminPortal = () => {
                 "Authorization": process.env.NEXT_PUBLIC_API_KEY
             },
             data
-        }).then((res) => window.location.reload());
+        }).then(() => window.location.reload());
 
     } catch (err) {
         console.log(err)

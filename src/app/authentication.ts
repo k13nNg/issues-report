@@ -2,7 +2,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
 
 const jwtKey = process.env.JWT_KEY;
 const signingKey = new TextEncoder().encode(jwtKey);

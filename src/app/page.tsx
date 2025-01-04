@@ -1,19 +1,18 @@
-import Image from "next/image";
 import axios from "axios";
 import Dashboard from "@/app/components/dashboard";
 
 interface ticket {
   id: number,
-  title: String,
-  desc: String,
-  status: String,
-  priority: String,
-  createdAt: String,
-  updatedAt: String
+  title: string,
+  desc: string,
+  status: string,
+  priority: string,
+  createdAt: string,
+  updatedAt: string
 }
 
 async function getAllTickets() {
-  const issues = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/issue`, {headers: {
+  const issues = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, {headers: {
     Authorization: process.env.NEXT_PUBLIC_API_KEY
   }})
 
@@ -21,7 +20,7 @@ async function getAllTickets() {
 }
 
 function getOpenTickets(allTickets: Array<ticket>) {
-  var openTickets = new Array<ticket>();
+  const openTickets = new Array<ticket>();
 
   allTickets.forEach(element => {
     if (element.status === "OPEN") {
@@ -33,7 +32,7 @@ function getOpenTickets(allTickets: Array<ticket>) {
 }
 
 function getInProgressTickets(allTickets: Array<ticket>) {
-  var inProgressTickets = new Array<ticket>();
+  const inProgressTickets = new Array<ticket>();
 
   allTickets.forEach(element => {
     if (element.status === "IN_PROGRESS") {
@@ -45,7 +44,7 @@ function getInProgressTickets(allTickets: Array<ticket>) {
 }
 
 function getClosedTickets(allTickets: Array<ticket>) {
-  var closedTickets = new Array<ticket>();
+  const closedTickets = new Array<ticket>();
 
   allTickets.forEach(element => {
     if (element.status === "CLOSED") {

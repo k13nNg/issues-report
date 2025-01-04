@@ -8,17 +8,17 @@ const changePasswordSchema = z.object({
     currentPassword: z.string().min(8, "Password must be at least 8 characters long"),
     newPassword: z.string().min(8, "Password must be at least 8 characters long"),
     confirmNewPassword: z.string().min(8, "Password must be at least 8 characters long"),
-}).superRefine(({ newPassword, confirmNewPassword }, checkPassComplexity) => {
-    const containsUppercase = (ch: string) => /[A-Z]/.test(ch);
-    const containsLowercase = (ch: string) => /[a-z]/.test(ch);
-    const containsSpecialChar = (ch: string) =>
-      /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/.test(ch);
+}).superRefine(({ newPassword }, checkPassComplexity) => {
+    function containsUppercase (ch: string) {return /[A-Z]/.test(ch)};
+    function containsLowercase (ch: string) {return /[a-z]/.test(ch)};
+    function containsSpecialChar (ch: string)
+      {return /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/.test(ch)};
     let countOfUpperCase = 0,
       countOfLowerCase = 0,
       countOfNumbers = 0,
       countOfSpecialChar = 0;
     for (let i = 0; i < newPassword.length; i++) {
-      let ch = newPassword.charAt(i);
+      const ch = newPassword.charAt(i);
       if (!isNaN(+ch)) countOfNumbers++;
       else if (containsUppercase(ch)) countOfUpperCase++;
       else if (containsLowercase(ch)) countOfLowerCase++;

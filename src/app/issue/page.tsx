@@ -2,7 +2,7 @@
 import React from 'react'
 import NewIssueForm from '../components/newIssueForm';
 import { getSession } from '../authentication'
-import { Button, Table } from '@radix-ui/themes';
+import { Table } from '@radix-ui/themes';
 import axios from 'axios';
 import { remark } from 'remark';
 import html from 'remark-html';
@@ -10,59 +10,23 @@ import html from 'remark-html';
 const Issue = async () => {
   const session = await getSession();
 
-  interface ticket {
+  interface Ticket {
     id: number,
-    title: String,
-    desc: String,
-    status: String,
+    title: string,
+    desc: string,
+    status: string,
     author: number,
-    priority: String,
-    createdAt: String,
-    updatedAt: String
+    priority: string,
+    createdAt: string,
+    updatedAt: string
   }
   
   async function getAllTickets() {
-    const issues = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/issue`, {headers: {
+    const issues = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/ticket`, {headers: {
       Authorization: process.env.NEXT_PUBLIC_API_KEY
     }})
   
     return issues;
-  }
-  
-  function getOpenTickets(allTickets: Array<ticket>) {
-    var openTickets = new Array<ticket>();
-  
-    allTickets.forEach(element => {
-      if (element.status === "OPEN") {
-        openTickets.push(element);
-      }
-    });
-  
-    return openTickets;
-  }
-  
-  function getInProgressTickets(allTickets: Array<ticket>) {
-    var inProgressTickets = new Array<ticket>();
-  
-    allTickets.forEach(element => {
-      if (element.status === "IN_PROGRESS") {
-        inProgressTickets.push(element);
-      }
-    });
-  
-    return inProgressTickets;
-  }
-  
-  function getClosedTickets(allTickets: Array<ticket>) {
-    var closedTickets = new Array<ticket>();
-  
-    allTickets.forEach(element => {
-      if (element.status === "CLOSED") {
-        closedTickets.push(element);
-      }
-    });
-  
-    return closedTickets;
   }
 
   function Priority(props: any) {
@@ -88,7 +52,7 @@ const Issue = async () => {
   }
 
   function TicketsTable(props: any) {
-    const toDisplayList = allTickets.filter((elem: any) => {
+    const toDisplayList = allTickets.filter((elem: Ticket) => {
 
       return elem.status.toLowerCase() === props.status || (elem.status === "IN_PROGRESS" && props.status === "inProgress")
     });

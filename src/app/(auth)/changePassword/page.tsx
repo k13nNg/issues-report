@@ -16,8 +16,6 @@ const ChangePassword = () => {
     const {register, handleSubmit} = useForm<ChangePasswordForm>();
     const [error, setError] = useState("");
     const router = useRouter();
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
     return (
         <div className='flex justify-center content-center'>
@@ -37,20 +35,14 @@ const ChangePassword = () => {
                             router.push("/")
     
                         } catch (err:any) {
-                            // console.log(err.response.data instanceof Array);
+
                             if (err.response.data instanceof Array) {
                                 const errObject = (err.response.data).find((i:any) => i.code === "custom");
                                 setError(errObject.message);
                             } else {
                                 setError(err.response.data);
                             }
-                            // if ((err.response.data) instanceof String) {
-                            //     console.log(typeof(err.response.data))
-                            //     setError(err.response.data);
-                            // } else {
-                                // const errObject = (err.response.data).find((i:any) => i.code === "custom");
-                                // setError(errObject.message);
-                            // }
+
                         }
                     }
                 })}>

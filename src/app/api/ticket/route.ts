@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(validation.error.errors, {status: 400});
     } else {
         try {
-            const newIssue = await prisma.issue.create({
+            const newIssue = await prisma.ticket.create({
                 data: {
                     title: body.title,
                     desc: body.desc,
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-    const allIssues = await prisma.issue.findMany();
+    const allIssues = await prisma.ticket.findMany();
 
     return NextResponse.json(allIssues, {status: 200});
 }
@@ -55,7 +55,7 @@ export async function PUT(request: NextRequest) {
     if (!validation.success) {
         return NextResponse.json(validation.error.errors, {status: 400});
     } else {
-        const updatedIssue = await prisma.issue.update({
+        const updatedIssue = await prisma.ticket.update({
             where: {
                 id: body.id
             },
@@ -75,7 +75,7 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
     const body = await request.json();
 
-    const deletedProject = await prisma.issue.delete({
+    const deletedProject = await prisma.ticket.delete({
         where: {
             id: body.id
         }
