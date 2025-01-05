@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Tech Issues Report Application
 
-## Getting Started
+A simplified technical issues management system, applicable to small- and medium-size organizations.
 
-First, run the development server:
+The app has two views: **User** and **Admin**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Admin functionalities include:
+- Overall view of all tickets in the database, sorted by priority or status.
+- Edit the status of each ticket.
+- Change account password.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+User functionalities include:
+- Overall view of all tickets in the database, sorted by priority or status.
+- Create new ticket.
+- Change account password.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+As my vision for the project is to be deployed to a server and is open to the internet, I did not add the **_Create/ Register new account_** feature as part of this app. This is because I want the system admin to have more control over the users in the system (they would have to manually add the user by sending POST request to the server, which can be automated by writing a small script using the pre-set secret API key).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The environment file must include:
+- DATABASE_URL (for database connection)
+- JWT_KEY (for authentication)
+- API_KEY (for authentication route, prevent unauthenticated users from accessing the api route and crawl data)
+- BASE_URL (for api routing)
 
-## Learn More
+## Some screenshots
+![CleanShot 2025-01-05 at 20 59 16@2x](https://github.com/user-attachments/assets/a44cbb30-d3d6-4fb5-80d9-2fc3fdd25cae)
+![CleanShot 2025-01-05 at 21 00 00@2x](https://github.com/user-attachments/assets/1ba52f44-1a06-44d1-a4f6-48bb767a9472)
+![CleanShot 2025-01-05 at 21 01 29@2x](https://github.com/user-attachments/assets/9b979f39-15e3-4651-b6fc-e777e5f2386a)
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
