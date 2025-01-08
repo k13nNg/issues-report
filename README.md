@@ -22,6 +22,18 @@ The environment file must include:
 - API_KEY (for authentication route, prevent unauthenticated users from accessing the api route and crawl data)
 - BASE_URL (for api routing)
 
+Want to test the app out? Use the following login credentials!
+
+THIS APP IS OPEN TO THE INTERNET, SO PLEASE WATCH OUT WHAT YOU COMMENT!!
+
+**Admin View:**
+_Username:_ testAdmin1
+_Password:_ testAdm1n!
+
+**User View:**
+_Username:_ testUser1
+_Password:_ n0tAT3stUs3r!
+
 ## Some screenshots
 ![CleanShot 2025-01-05 at 20 59 16@2x](https://github.com/user-attachments/assets/a44cbb30-d3d6-4fb5-80d9-2fc3fdd25cae)
 ![CleanShot 2025-01-05 at 21 00 00@2x](https://github.com/user-attachments/assets/1ba52f44-1a06-44d1-a4f6-48bb767a9472)
@@ -29,3 +41,4 @@ The environment file must include:
 
 
 
+ 
